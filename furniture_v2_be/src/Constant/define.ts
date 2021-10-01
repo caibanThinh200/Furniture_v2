@@ -13,7 +13,8 @@ const TAG_DEFINE = {
         CATEGORY_DETAIL: "CategoryDetail",
         BILL: "Bill",
         SOCIAL_MEDIA: "Social media",
-        ACCESSORY: "Accessory"
+        ACCESSORY: "Accessory",
+        PET_TYPE: "PetType"
     },
     SERVICE: {
         start: "WELCOME TO AZP SERVER",
@@ -103,6 +104,13 @@ const TAG_DEFINE = {
             getDetail: "Lấy chi tiết hóa đơn",
             delete: "Xóa hóa đơn",
         },
+        PET_TYPE:{
+            GET_LIST: "Lấy danh sách loại thú cưng",
+            GET_DETAIL: "Lấy chi tiết loại thú cưng",
+            CREATE: "Tạo loại thú cưng",
+            UPDATE: "Cập nhật loại thú cưng",
+            DELETE: "Xóa loại thú cưng"
+        }
     },
     STORE: {
         FURNITURE: "Furniture",

@@ -2,9 +2,36 @@ import logger from '../Config/logger';
 import TAG_DEFINE from '../Constant/define';
 import CommonFunction from "../Utils/function";
 import { ProductFactory } from '../Factory/Creator/ProductFactory';
+import CategoryDetailFactory from '../Factory/Creator/CategoryDetailFactory'
 import lodash from 'lodash';
+import e from 'express';
 
 class ProductService {
+
+    private static async AAPopulate(product, type, id?, category_detail_id?) {
+        if (type === TAG_DEFINE.STORE.AA_PET) {
+            switch(false){
+                case !id:
+                    product = await ProductFactory.getSchema(type)
+                        .findById(id)
+                        .populate("category_detail_id")
+                        .populate("pet_type_id");
+                    break;
+                case !category_detail_id: 
+                    product = await ProductFactory.getSchema(type)
+                        .find({category_detail_id})
+                        .populate("category_detail_id")
+                        .populate("pet_type_id");
+                default:
+                    product = await ProductFactory.getSchema(type)
+                        .find()
+                        .populate("category_detail_id")
+                        .populate("pet_type_id");
+            }
+        }
+
+        return product;
+    }
 
     public static async AddProductService(req: any) {
         try {
@@ -25,7 +52,10 @@ class ProductService {
     public static async GetListProductService(req: any) {
         try {
             const type = req.headers['type'];
-            const product = await ProductFactory.getSchema(type).find({});
+            let product = await ProductFactory.getSchema(type).find({});
+
+            product = await this.AAPopulate(product, type);
+
             const productFactory = product.map(item => ProductFactory.getProduct(item, type));
             return productFactory;
         } catch(e) {
@@ -33,11 +63,53 @@ class ProductService {
         }
     }
 
+    public static async GetListProductsByDetailCategoryIdService(req: any){
+        const type = req.headers["type"];
+        const {category_detail_id} = req.params;
+
+        try {
+            let products = await ProductFactory.getSchema(type).find({
+                category_detail_id,
+            });
+
+            products = await this.AAPopulate(products, type, null, category_detail_id);
+
+            const productFactory = products.map(item => ProductFactory.getProduct(item, type));
+
+            return productFactory;
+        } catch (error) {
+            logger.error(error);
+        }
+    }
+
+    public static async GetListProductsByCategoryIdService(req: any){
+        const type = req.headers["type"];
+        const {category_id} = req.params;
+
+        try {
+            let categories_detail = await CategoryDetailFactory.GetSchema(type).find({category_id});
+            let products = [];
+
+            for (let i = 0; i < categories_detail.length; i++) {
+                const product = await ProductFactory.getSchema(type).find({category_detail_id: categories_detail[i]._id});
+                products = await this.AAPopulate(products, type, null, categories_detail[i]._id);
+                products = products.concat(product);
+            }
+
+            return products;
+        } catch (error) {
+            logger.error(error);
+        }
+    }
+
     public static async GetDetailProductService(req: any) {
         try {
             const type = req.headers["type"];
             const {id} = req.params || "";
-            const product = await ProductFactory.getSchema(type).findById(id)
+            let product = await ProductFactory.getSchema(type).findById(id)
+
+            product = await this.AAPopulate(product, type, id);
+            
             const productFactory = ProductFactory.getProduct(product, type);
             return productFactory;
         } catch(e) {

@@ -1,8 +1,8 @@
-import {CategorySchema} from "../Categories/furniture";
-import ImageModel, {ImageSchema} from '../Upload/furniture';
-import { ProductBaseField } from './baseField';
-import { Schema, model } from 'mongoose';
-import TAG_DEFINE from '../../Constant/define';
+import { CategorySchema } from "../Categories/furniture";
+import ImageModel, { ImageSchema } from "../Upload/furniture";
+import { ProductBaseField } from "./baseField";
+import { Schema, model } from "mongoose";
+import TAG_DEFINE from "../../Constant/define";
 import CommonFunction from "../../Utils/function";
 
 const FurnitureFields = {
@@ -41,6 +41,12 @@ const FurnitureFields = {
 };
 
 export const FurnitureProductSchema = new Schema(FurnitureFields);
-const FurnitureModel = model(CommonFunction.getStoreSchema(TAG_DEFINE.SCHEMA.PRODUCT, TAG_DEFINE.STORE.FURNITURE), FurnitureProductSchema)
+const FurnitureModel = model(
+    CommonFunction.getStoreSchema(
+        TAG_DEFINE.SCHEMA.PRODUCT,
+        TAG_DEFINE.STORE.FURNITURE
+    ),
+    FurnitureProductSchema
+);
 
 export default FurnitureModel;

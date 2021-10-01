@@ -13,10 +13,28 @@ export const ProductField = {
             TAG_DEFINE.STORE.AA_PET
         ),
     },
-    images: {
+    img: {
         type: Array,
         default: [],
     },
+    rating_point: {
+        type: Number,
+        default: 0,
+    },
+    reviews: {
+        type: Array,
+        default: [],
+    },
+    pet_type_id: [
+        {
+            type: String,
+            ref: CommonFunction.getStoreSchema(
+                TAG_DEFINE.SCHEMA.PET_TYPE,
+                TAG_DEFINE.STORE.AA_PET
+            ),
+            required: true,
+        },
+    ],
 };
 
 const ProductSchema = new mongoose.Schema(ProductField);

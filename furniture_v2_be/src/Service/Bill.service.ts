@@ -63,7 +63,13 @@ class BillService {
             const { id } = req.params || "";
             const bill = await BillFactory.getSchema(type)
                 .findById(id)
-                .populate("user_id");
+                .populate("user_id")
+                .populate({
+                    path: "products",
+                    populate: {
+                        path: "product_id",
+                    },
+                });
             const billFactory = BillFactory.getBill(bill, type);
             return billFactory;
         } catch (e) {

@@ -3,30 +3,33 @@ const PATH: any = {
         start: "/",
         params: "/:params",
         404: "*",
-        upload: "/fnt-media"
+        upload: "/fnt-media",
     },
     PRODUCT: {
-        baseURL: "/product"
+        baseURL: "/product",
     },
     CATEGORY: {
-        baseURL: "/cate"
+        baseURL: "/cate",
     },
     CATEGORY_DETAIL: {
-        baseURL: "/cate-detail"
+        baseURL: "/cate-detail",
     },
     AUTH: {
         detail: "/detail/:id",
         baseURL: "/auth",
         login: "/login",
         register: "/register",
-        infoJWT: "/token"
+        infoJWT: "/token",
     },
     SOCIAL_MEDIA: {
         baseURL: "/media",
     },
     BILL: {
-        baseURL: "/bill"
-    }
+        baseURL: "/bill",
+    },
+    PET_TYPE: {
+        baseURL: "/pet-type",
+    },
 };
 
 export default PATH;

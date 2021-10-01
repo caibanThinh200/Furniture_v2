@@ -2,6 +2,7 @@ import { Response } from 'express';
 import logger from '../Config/logger';
 import TAG_DEFINE from '../Constant/define';
 import bcrypt from "bcrypt";
+import { ProductFactory } from '../Factory/Creator/ProductFactory';
 
 class CommonFunction {
     static instance: CommonFunction;
@@ -11,6 +12,7 @@ class CommonFunction {
         }
         return CommonFunction.instance;
     }
+    
 
     // functions
     static formatInt(numberParams: any, defaultNum: number = 0) {
@@ -51,7 +53,7 @@ class CommonFunction {
 
     static async validateGender(document) {
         const gender = parseInt(document.gender) || 0;
-        let result = '';
+        let result = "";
         switch (gender) {
             case 0:
                 result = "Male";
@@ -81,7 +83,9 @@ class CommonFunction {
     }
 
     static checkEmailValue(value: string) {
-        return value.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        return value.match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
     }
 
     static hasNumberInString(value: string) {
@@ -94,9 +98,9 @@ class CommonFunction {
             result: null,
             error: {
                 code: 400,
-                message: message
-            }
-        })
+                message: message,
+            },
+        });
     }
 
     static responseAuthorizeRequest(message: string, res: Response) {
@@ -105,10 +109,12 @@ class CommonFunction {
             result: null,
             error: {
                 code: 501,
-                message: message
-            }
-        })
+                message: message,
+            },
+        });
     }
+
+    
 }
 
 export default CommonFunction;
