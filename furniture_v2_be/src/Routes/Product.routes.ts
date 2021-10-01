@@ -11,6 +11,6 @@ route.get(PATH.APP.params.replace("params", "id"), ProductController.GetDetailPr
 route.get(`/category/:category_id`, ProductController.GetListProductByCategoryIdController);
 route.get(`/category-detail/:category_detail_id`, ProductController.GetListProductByCategoryDetailIdController);
 route.put(PATH.APP.params.replace("params", "id"), ProductController.UpdateProductController);
-route.delete(PATH.APP.params.replace("params", "id"), ProductController.DeleteProductController);
+// route.delete(PATH.APP.params.replace("params", "id"), ProductController.DeleteProductController);
 
 export default route;
