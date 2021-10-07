@@ -5,7 +5,6 @@ import SocialMediaRoute from "./SocialMedia.routes";
 import BillRoute from "./Bill.routes";
 import CategoryDetailRoute from "./CategoryDetail.routes";
 import PetTypeRoute from './PetType.routes';
-import OrderRoute from './Order.routes';
 import { Express } from "express";
 import PATH from "../Constant/url";
 
@@ -17,5 +16,4 @@ export default (app: Express) => {
     app.use(PATH.BILL.baseURL, BillRoute);
     app.use(PATH.CATEGORY_DETAIL.baseURL, CategoryDetailRoute);
     app.use(PATH.PET_TYPE.baseURL, PetTypeRoute);
-    app.use(PATH.ORDER.baseURL, OrderRoute);
 };
