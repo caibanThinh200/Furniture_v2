@@ -30,6 +30,10 @@ const PATH: any = {
     PET_TYPE: {
         baseURL: "/pet-type",
     },
+    ORDER:{
+        baseURL: "/order",
+        user_id: "/user/:id",
+    }
 };
 
 export default PATH;

@@ -45,6 +45,8 @@ export default class AuthService {
                 existingUser = await UserFactory.getSchema(type).findOne({username});
             }
 
+            console.log(existingUser)
+
             const comparePassword = existingUser && (await bcrypt.compare(password, existingUser?.password));
             
             if (!existingUser || !comparePassword) {
