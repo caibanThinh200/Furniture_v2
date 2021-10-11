@@ -14,15 +14,11 @@ class AAPetModel extends ProductModel {
 
     setFurnitureData(data: any) {
         this.setData(data);
-<<<<<<< HEAD
         this.category_detail_id = data.category_detail_id || "";
         this.img = data.img;
         this.rating_point = data.rating_point || 0;
         this.reviews = data.reviews;
         this.pet_type_id = data.pet_type_id || [];
-=======
-        this.category_detail_id = data?.category_detail_id || "";
->>>>>>> master
     }
 }
 

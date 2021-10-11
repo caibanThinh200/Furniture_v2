@@ -46,11 +46,38 @@ class ProductController {
     }
 
     public static async GetListProductByCategoryIdController(req: Request, res: Response) {
-        
+        try {
+            const result = await ProductService.GetListProductByCategoryId(req);
+            res.status(200).json(result);
+        } catch (e) {
+            logger.error(e);
+            res.status(500).json(
+                CommonFunction.getActionResult(
+                    null,
+                    500,
+                    e,
+                    TAG_DEFINE.RESULT.PRODUCT.getList
+                )
+            );
+
+        }
     }
 
     public static async GetListProductByCategoryDetailIdController(req: Request, res: Response) {
-        
+        try {
+            const result = await ProductService.GetListProductByCategoryDetailId(req);
+            res.status(200).json(result);
+        } catch (e) {
+            logger.error(e);
+            res.status(500).json(
+                CommonFunction.getActionResult(
+                    null,
+                    500,
+                    e,
+                    TAG_DEFINE.RESULT.PRODUCT.getList
+                )
+            );
+        }
     }
 
     public static async GetDetailProductController(req: Request, res: Response) {

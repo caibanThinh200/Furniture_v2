@@ -39,6 +39,16 @@ export const ProductField = {
 
 const ProductSchema = new mongoose.Schema(ProductField);
 
+var autoPopulateLead = function (next) {
+    this.populate("category_detail_id")
+    // .populate("pet_type_id");
+
+    next();
+};
+
+ProductSchema.pre("findOne", autoPopulateLead);
+ProductSchema.pre("find", autoPopulateLead);
+
 const Product = mongoose.model(
     CommonFunction.getStoreSchema(TAG_DEFINE.SCHEMA.PRODUCT, TAG_DEFINE.STORE.AA_PET),
     ProductSchema
