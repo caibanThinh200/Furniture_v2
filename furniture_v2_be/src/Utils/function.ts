@@ -37,7 +37,7 @@ class CommonFunction {
         return {
             code,
             result: result === null ? value + TAG_DEFINE.RESULT[num] : result,
-            error: error === null ? null : error.message
+            error: error === null ? null : {message: error.message}
         }
     }
 

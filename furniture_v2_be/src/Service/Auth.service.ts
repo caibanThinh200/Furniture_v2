@@ -19,7 +19,7 @@ export default class AuthService {
                     CommonFunction.getActionResult(null, 201, null, TAG_DEFINE.RESULT.AUTH.REGISTER)
                 )
                 .catch((e) => {
-                    logger.error(e);
+                    logger.error(e.message);
                     return CommonFunction.getActionResult(null, 403, e, TAG_DEFINE.RESULT.AUTH.REGISTER);
                 });
 

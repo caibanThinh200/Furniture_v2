@@ -31,14 +31,14 @@ export const ValidateRegister = async (
 
   const isPhoneAvailable = ((await UserFactory.getSchema((req.headers as any)["type"]).find({ phone: (userFactory as any).phone })) || []).length === 0;
 
-  const isValidAdress = !!(userFactory as any)?.address;
+  // const isValidAdress = !!(userFactory as any)?.address;
   const isValidPassword = !!(userFactory as any)?.password && !CommonFunction.checkSpicialCharacter((userFactory as any)?.password);
 
   switch(false) {
       case isValidName: return CommonFunction.responseBadRequest(TAG_DEFINE.VALIDATION.USER.name, res)
       case isValidPhone: return CommonFunction.responseBadRequest(TAG_DEFINE.VALIDATION.USER.phone, res)
       case isPhoneAvailable: return CommonFunction.responseBadRequest(TAG_DEFINE.VALIDATION.USER.unavailablePhone, res)
-      case isValidAdress: return CommonFunction.responseBadRequest(TAG_DEFINE.VALIDATION.USER.address, res)
+      // case isValidAdress: return CommonFunction.responseBadRequest(TAG_DEFINE.VALIDATION.USER.address, res)
       case isEmailValid: return CommonFunction.responseBadRequest(TAG_DEFINE.VALIDATION.USER.email, res)
       case isEmailAvailable: return CommonFunction.responseBadRequest(TAG_DEFINE.VALIDATION.USER.unavailableEmail, res)
       case isValidPassword: return CommonFunction.responseBadRequest(TAG_DEFINE.VALIDATION.USER.password, res)
