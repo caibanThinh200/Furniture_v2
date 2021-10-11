@@ -40,7 +40,7 @@ const Categories: React.FC<Props> = props => {
                     )
                 } */}
                 <Tree 
-                    data={Dummy.categories} 
+                    data={props.categories} 
                     onSelectors={onCateSelected} 
                     onExpanding={onExpanding}
                 />

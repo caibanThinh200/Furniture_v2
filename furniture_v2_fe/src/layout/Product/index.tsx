@@ -1,12 +1,15 @@
 import Wrapper from "../../Component/Wrapper";
 import PageLayout from "../../Component/PageLayout";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import Categories from "./Categories";
 import "../../style/product.scss"
 import clsx from "clsx";
 import ProductList from "./ProductList/ProductList";
 import TAG_DEFINE from "../../constant/tagDefine";
 import { getRestProps } from "../../Util/functions";
+import { Action, Dispatch } from 'redux';
+import { getListAllCategoryAction } from '../../action/categoryAction';
+import { connect } from "react-redux";
 
 interface Props extends Omit<getRestProps, "restProps"> {
 
@@ -16,6 +19,10 @@ const Product: React.FC<Props> = props => {
     const [filterSelected, setFilterSelected] = useState({tag: ""}),
     [tagResult, setTagResult] = useState({key: "", title: ""}),
     [currentBranch, setCurrentBranch] = useState([]);
+
+    useEffect(() => {
+        props.getListAll();
+    }, []);
 
     const onFilterChange = (e: any) => {
         setFilterSelected({
@@ -53,7 +60,7 @@ const Product: React.FC<Props> = props => {
     return (
         <Wrapper className={clsx(props.className)}>
             <PageLayout
-                sider={<Categories 
+                sider={<Categories {...props}
                         onExpandChange={onExpandChange} 
                         onFilterChange={onFilterChange}
                     />}
@@ -65,5 +72,13 @@ const Product: React.FC<Props> = props => {
         </Wrapper>
     )
 }
+
+const mapStateToProps = (state: any) => ({
+    categories: state.categoryReducer.categories
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    getListAll: (data: any) => dispatch(getListAllCategoryAction())
+})
  
-export default Product;
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

@@ -10,7 +10,7 @@ export default abstract class BillRequest implements generateData {
     }
 
     setData(data: any): void {
-        this.total = (data.products || []).reduce((i, k) => i + k.price, 0) || 0;
-        this.created_at = data.created_at || Date.now();
+        this.total = (data?.products || []).reduce((i, k) => i + k.price, 0) || 0;
+        this.created_at = data?.created_at || Date.now();
     }
 }

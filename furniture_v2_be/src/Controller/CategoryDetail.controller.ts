@@ -9,23 +9,10 @@ class CategoryDetailController {
         try {
             const result = await CategoryDetailService.AddCategoryDetailService(req);
 
-            res.status(201).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result,
-            });
-        } catch (e) {
+            res.status(200).json(result);
+        } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.CATEGORY_DETAIL.create,
-                        500
-                    ),
-                },
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.CATEGORY_DETAIL.create));
         }
     }
 
@@ -33,20 +20,10 @@ class CategoryDetailController {
         try {
             const result = await CategoryDetailService.GetListCategoryDetailService(req);
 
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result
-            })
-        } catch (e) {
+            res.status(200).json(result)
+        } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.CATEGORY_DETAIL.getList, 500)
-                }
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.CATEGORY_DETAIL.getList));
         }
     }
 
@@ -58,20 +35,10 @@ class CategoryDetailController {
             const result =
                 await CategoryDetailService.GetCategoryDetailService(req);
 
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result,
-            });
-        } catch (e) {
+            res.status(200).json(result);
+        } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.CATEGORY_DETAIL.getDetail, 500)
-                }
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.CATEGORY_DETAIL.getDetail));
         }
     }
 
@@ -80,20 +47,10 @@ class CategoryDetailController {
             const result =
                 await CategoryDetailService.UpdateCategoryDetailService(req);
 
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result,
-            });
-        } catch (e) {
+            res.status(200).json(result);
+        } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.CATEGORY_DETAIL.update, 500)
-                }
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.CATEGORY_DETAIL.update));
         }
     }
 
@@ -102,20 +59,10 @@ class CategoryDetailController {
             const result =
                 await CategoryDetailService.DeleteCategoryDetailService(req);
 
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result,
-            });
-        } catch (e) {
+            res.status(200).json(result);
+        } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.CATEGORY_DETAIL.delete, 500)
-                }
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.CATEGORY_DETAIL.delete));
         }
     }
 }

@@ -1,10 +1,9 @@
-import logger from "../Config/logger";
-import TAG_DEFINE from "../Constant/define";
+import ExcelGenerator from '../Config/excelParser';
+import logger from '../Config/logger';
+import TAG_DEFINE, { DEFINE_INFOMATION } from '../Constant/define';
+import { CategoryFactory } from '../Factory/Creator/CategoryFactory';
+import { ProductFactory } from '../Factory/Creator/ProductFactory';
 import CommonFunction from "../Utils/function";
-import { ProductFactory } from "../Factory/Creator/ProductFactory";
-import CategoryDetailFactory from "../Factory/Creator/CategoryDetailFactory";
-import lodash from "lodash";
-import e from "express";
 
 class ProductService {
     private static async AAPopulate(product, type, id?, category_detail_id?) {
@@ -34,100 +33,72 @@ class ProductService {
         return product;
     }
 
+    public static async AddProductByExcelService(req: any) {
+        try {
+            const initProduct = ProductFactory.createProduct(null, req.headers['type']);
+            const dataField = {
+                path: DEFINE_INFOMATION.PRODUCT_EXCEL,
+                objects: Object.keys(initProduct)
+            }
+            const listData = new ExcelGenerator(dataField)["data"]["Sheet1"];
+            return Promise.all(listData.map(async item => await this.AddProductService({...req, body: item})))
+        } catch(e) {
+            console.log(e);
+            return false;
+        }
+    }
+
     public static async AddProductService(req: any) {
         try {
-            const productFactory = ProductFactory.createProduct(
-                req.body,
-                req.headers["type"]
-            );
-            const product = ProductFactory.createSchema(
-                productFactory,
-                req.headers["type"]
-            );
-            const result = await product
-                .save()
-                .then(() =>
-                    CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.PRODUCT.create,
-                        200
-                    )
-                )
-                .catch((e) => {
-                    logger.error(e);
-                    return CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.PRODUCT.create,
-                        500
-                    );
-                });
+            const productFactory = ProductFactory.createProduct(req.body, req.headers['type']);
+            const product = ProductFactory.createSchema(productFactory, req.headers['type'])
+            const result = await product.save()
+            .then(() => CommonFunction.getActionResult(null, 201, null, TAG_DEFINE.RESULT.PRODUCT.create))
+            .catch(e => {
+                logger.error(e);
+                return CommonFunction.getActionResult(null, 403, e, TAG_DEFINE.RESULT.PRODUCT.create);
+            });
             return result;
         } catch (e) {
             logger.error(e);
+            return CommonFunction.getActionResult(null, 400, e, TAG_DEFINE.RESULT.PRODUCT.create);
         }
     }
 
     public static async GetListProductService(req: any) {
         try {
-            const type = req.headers["type"];
-            let product = await ProductFactory.getSchema(type).find({});
-
-            product = await this.AAPopulate(product, type);
-
-            const productFactory = product.map((item) =>
-                ProductFactory.getProduct(item, type)
-            );
-            return productFactory;
-        } catch (e) {
+            const type = req.headers['type'];
+            const product = await ProductFactory.getSchema(type).find({});
+            const productFactory = product.map(item => ProductFactory.getProduct(item, type));
+            return CommonFunction.getActionResult(productFactory, 200, null);
+        } catch(e) {
             logger.error(e);
         }
     }
 
-    public static async GetListProductsByDetailCategoryIdService(req: any) {
-        const type = req.headers["type"];
-        const { category_detail_id } = req.params;
-
+    public static async GetFilterProductService(req: any) {
         try {
-            let products = await ProductFactory.getSchema(type).find({
-                category_detail_id,
-            });
-
-            products = await this.AAPopulate(
-                products,
-                type,
-                null,
-                category_detail_id
-            );
-
-            const productFactory = products.map((item) =>
-                ProductFactory.getProduct(item, type)
-            );
-
-            return productFactory;
-        } catch (error) {
-            logger.error(error);
-        }
-    }
-
-    public static async GetListProductsByCategoryIdService(req: any) {
-        const type = req.headers["type"];
-        const { category_id } = req.params;
-
-        try {
-            let categories_detail = await CategoryDetailFactory.GetSchema(
-                type
-            ).find({ category_id });
-            let products = [];
-
-            for (let i = 0; i < categories_detail.length; i++) {
-                const product = await ProductFactory.getSchema(type)
-                    .find({ category_detail_id: categories_detail[i]._id })
-                    .populate("category_detail_id")
-                    .populate("pet_type_id");
-                products = products.concat(product);
+            const type = req.headers['type'];
+            const startIndex = ((req?.query?.page_index || 1) - 1) * (req?.query?.page_size || 10)
+            const endIndex = ((req?.query?.page_index || 1)) * (req?.query?.page_size || 10)
+            let arr = await this.GetListProductService(req);
+            const rootCategories = req.query.cate && await CategoryFactory.getSchema(type).find();
+            if(req.query.cate) {
+                (CommonFunction.generateTreeData(rootCategories, []) || []).forEach(item => {
+                    if((item as any).name === req.query?.cate) {
+                        arr = (item?.products || []); 
+                    }
+                })
             }
-
-            return products;
-        } catch (error) {
-            logger.error(error);
+            const filterProduct = arr.result.map(async id => {
+                const product = await ProductFactory.getSchema(type).findOne({_id: id});
+                return ProductFactory.getProduct(product, type);
+            });
+            const filterPromise = await Promise.all(filterProduct);
+            return filterPromise.slice(startIndex, endIndex);
+        } catch(e) {
+            logger.error(e);
+            return false;
         }
     }
 
@@ -140,9 +111,10 @@ class ProductService {
             product = await this.AAPopulate(product, type, id);
 
             const productFactory = ProductFactory.getProduct(product, type);
-            return productFactory;
-        } catch (e) {
+            return CommonFunction.getActionResult(productFactory, 200, null);
+        } catch(e) {
             logger.error(e);
+            return CommonFunction.getActionResult(null, 400, e, TAG_DEFINE.RESULT.PRODUCT.getDetail);
         }
     }
 
@@ -160,26 +132,18 @@ class ProductService {
                 req.query
             );
             const updateResult = await ProductFactory.getSchema(type)
-                .find(filters)
-                .updateOne(updateProduct)
-                .then(() =>
-                    CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.PRODUCT.update,
-                        200
-                    )
-                )
-                .catch((err) => {
-                    logger.error(err);
+            .find(filters)
+            .updateOne(updateProduct)
+            .then(() => CommonFunction.getActionResult(null, 200, null, TAG_DEFINE.RESULT.PRODUCT.update))
+            .catch((err) => {
+                logger.error(err);
 
-                    return CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.PRODUCT.update,
-                        500
-                    );
-                });
-
+                return CommonFunction.getActionResult(null, 403, err, TAG_DEFINE.RESULT.PRODUCT.update);
+            })
             return updateResult;
         } catch (e) {
             logger.error(e);
+            return CommonFunction.getActionResult(null, 400, e, TAG_DEFINE.RESULT.PRODUCT.update);
         }
     }
 
@@ -190,25 +154,18 @@ class ProductService {
         try {
             const product = await ProductFactory.getSchema(type);
 
-            const result = await product
-                .findByIdAndDelete(id)
-                .then(() => {
-                    return CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.PRODUCT.delete,
-                        200
-                    );
-                })
-                .catch((err) => {
-                    logger.error(err);
-                    return CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.PRODUCT.delete,
-                        500
-                    );
-                });
-
+            const result = await product.findByIdAndDelete(id)
+            .then(() => {
+                return CommonFunction.getActionResult(null, 200, null, TAG_DEFINE.RESULT.PRODUCT.delete);
+            }).catch(err => {
+                logger.error(err)
+                return CommonFunction.getActionResult(null, 403, err, TAG_DEFINE.RESULT.PRODUCT.delete);
+            })
+            
             return result;
         } catch (error) {
             logger.error(error);
+            return CommonFunction.getActionResult(null, 400, error, TAG_DEFINE.RESULT.PRODUCT.delete);
         }
     }
 }

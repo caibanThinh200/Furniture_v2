@@ -13,10 +13,10 @@ export abstract class SocialMediaRequest implements generateData {
     }
 
     setData(data: any): void {
-        this.name = data.name || "";
-        this.code = data.code || "";
-        this.thumb = data.thumb || "";
-        this.created_at = data.created_at || Date.now();
-        this.updated_at = data.updated_at || null;
+        this.name = data?.name || "";
+        this.code = data?.code || "";
+        this.thumb = data?.thumb || "";
+        this.created_at = data?.created_at || Date.now();
+        this.updated_at = data?.updated_at || null;
     }
 }

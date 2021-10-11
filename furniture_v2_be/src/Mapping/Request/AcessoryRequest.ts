@@ -12,9 +12,9 @@ export abstract class AccessoryRequest implements generateData {
     }
 
     setData(data: any): void {
-        this.name = data.name || "";
-        this.type = data.type || "";
-        this.created_at = data.created_at || Date.now();
-        this.updated_at = data.updated_at || null;
+        this.name = data?.name || "";
+        this.type = data?.type || "";
+        this.created_at = data?.created_at || Date.now();
+        this.updated_at = data?.updated_at || null;
     }
 }

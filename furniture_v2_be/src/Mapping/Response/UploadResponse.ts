@@ -14,11 +14,11 @@ export abstract class UploadResponse implements generateData {
     }
 
     setData(data: any): void {
-        this._id = data._id.toString() || "";
-        this.url = data.url || "";
-        this.name = data.name || "";
-        this.role = data.role || "";
-        this.created_at = data.created_at || null;
-        this.updated_at = data.updated_at || null;
+        this._id = data?._id.toString() || "";
+        this.url = data?.url || "";
+        this.name = data?.name || "";
+        this.role = data?.role || "";
+        this.created_at = data?.created_at || null;
+        this.updated_at = data?.updated_at || null;
     }
 }

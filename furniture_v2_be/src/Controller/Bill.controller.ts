@@ -8,60 +8,30 @@ class BillController {
     public static async AddBillController(req: Request, res: Response) {
         try {
             const result = await BillService.AddBillService(req);
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result
-            });
+            res.status(200).json(result);
         } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.BILL.create, 500)
-                }
-            });
+            res.status(400).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.BILL.create));
         }
     }
 
     public static async GetListBillController(req: Request, res: Response) {
         try {
             const result = await BillService.GetListBillService(req);
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result
-            });
+            res.status(200).json(result);
         } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.BILL.getList, 500)
-                }
-            });
+            res.status(400).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.BILL.getList));
         }
     }
 
     public static async GetDetailBillController(req: Request, res: Response) {
         try {
             const result = await BillService.GetDetailBillService(req);
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result
-            });
+            res.status(200).json(result);
         } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.BILL.getDetail, 500)
-                }
-            });
+            res.status(400).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.BILL.getDetail));
         }
     }
 }

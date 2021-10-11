@@ -12,8 +12,8 @@ class FurnitureResponse extends BillResponse {
 
     setFurnitureData(data: any) {
         this.setData(data);
-        this.user = new FurnitureUserResponse(data.user) || {}
-        this.products = (data.products || []).map(item => new FurnitureProductResponse(item)) || [];
+        this.user = new FurnitureUserResponse(data?.user) || {}
+        this.products = (data?.products || []).map(item => new FurnitureProductResponse(item)) || [];
     }
 }
 

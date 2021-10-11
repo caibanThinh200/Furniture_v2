@@ -11,7 +11,7 @@ export default class AAPetResponse extends BillResponse {
 
     setAAPetData(data: any){
         this.setData(data);
-        this.user_id = data.user_id;
-        this.products = data.products;
+        this.user_id = data?.user_id;
+        this.products = data?.products;
     }
 }

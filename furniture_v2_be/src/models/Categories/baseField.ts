@@ -3,7 +3,6 @@ export default {
     name: {
         type: String,
         required: true,
-        unique: true,
     },
     created_at: {
         type: Date,

@@ -1,7 +1,8 @@
 import { Route } from "react-router-dom"
 import { useEffect } from "react";
+import { getRestProps } from '../Util/functions';
 
-interface Props {
+interface Props  extends Omit<getRestProps, "restProps"> {
     component: any,
     location: any,
     getLocation: any

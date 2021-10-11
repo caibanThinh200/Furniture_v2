@@ -18,21 +18,16 @@ class BillService {
             const result = await bill
                 .save()
                 .then(() =>
-                    CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.BILL.create,
-                        200
-                    )
+                    CommonFunction.getActionResult(null, 201, null, TAG_DEFINE.RESULT.BILL.create)
                 )
                 .catch((e) => {
                     logger.error(e);
-                    return CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.BILL.create,
-                        500
-                    );
+                    return CommonFunction.getActionResult(null, 400, e, TAG_DEFINE.RESULT.BILL.create);
                 });
             return result;
         } catch (e) {
             logger.error(e);
+            return CommonFunction.getActionResult(null, 400, e, TAG_DEFINE.RESULT.BILL.create);
         }
     }
 
@@ -51,9 +46,10 @@ class BillService {
             const billFactory = bill.map((item) =>
                 BillFactory.getBill(item, type)
             );
-            return billFactory;
+            return CommonFunction.getActionResult(billFactory, 200, null);
         } catch (e) {
             logger.error(e);
+            return CommonFunction.getActionResult(null, 400, e, TAG_DEFINE.RESULT.BILL.getList);
         }
     }
 
@@ -71,9 +67,10 @@ class BillService {
                     },
                 });
             const billFactory = BillFactory.getBill(bill, type);
-            return billFactory;
+            return CommonFunction.getActionResult(billFactory, 200, null);
         } catch (e) {
             logger.error(e);
+            return CommonFunction.getActionResult(null, 400, e, TAG_DEFINE.RESULT.BILL.getDetail);
         }
     }
 }

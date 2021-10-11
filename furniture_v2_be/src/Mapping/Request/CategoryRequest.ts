@@ -4,7 +4,6 @@ import { v4 } from "uuid";
 
 export default abstract class CategoryRequest implements generateData {
     private name: any;
-    private _id: string;
     private created_at: any;
     private updated_at: any;
 
@@ -13,9 +12,8 @@ export default abstract class CategoryRequest implements generateData {
     }
 
     setData(data: any): void {
-        this._id = v4() || "";
-        this.name = data.name || "";
-        this.created_at = data.created_at || Date.now();
-        this.updated_at = data.updated_at || null;
+        this.name = data?.name || "";
+        this.created_at = data?.created_at || Date.now();
+        this.updated_at = data?.updated_at || null;
     }
 }

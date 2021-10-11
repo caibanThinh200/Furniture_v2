@@ -4,5 +4,8 @@ export default {
         login: "/auth/login",
         detail: "/auth/:id",
         token: "/auth/token"
+    },
+    CATEGORY: {
+        getList: "/cate"
     }
 }

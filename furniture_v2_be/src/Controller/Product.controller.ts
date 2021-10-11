@@ -5,149 +5,81 @@ import CommonFunction from '../Utils/function';
 import {Request, Response} from "express"
 
 class ProductController {
+    public static async AddProductByExcelController(req: Request, res: Response) {
+        try {
+            const result = await ProductService.AddProductByExcelService(req);
+            res.status(200).json(result);
+        } catch(e) {
+            logger.error(e);
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.create));
+        }
+    }
+
     public static async AddProductController(req: Request, res: Response) {
         try {
             const result = await ProductService.AddProductService(req)
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result
-            });
+            res.status(200).json(result);
         } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.PRODUCT.create, 500)
-                }
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.create));
         }
     }
 
     public static async GetListProductController(req: Request, res: Response) {
         try {
             const result = await ProductService.GetListProductService(req);
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result
-            });
+            res.status(200).json(result);
         } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.PRODUCT.getList, 500)
-                }
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.getList));
+        }
+    }
+
+    public static async GetFilterProductController(req: Request, res: Response) {
+        try {
+            const result = await ProductService.GetFilterProductService(req);
+            res.status(200).json(result);
+        } catch(e) {
+            logger.error(e);
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.getList));
         }
     }
 
     public static async GetListProductByCategoryIdController(req: Request, res: Response) {
-        try {
-            const result = await ProductService.GetListProductsByCategoryIdService(req);
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result,
-            });
-        } catch (e) {
-            logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.PRODUCT.getList,
-                        500
-                    ),
-                },
-            });
-        }
+        
     }
 
     public static async GetListProductByCategoryDetailIdController(req: Request, res: Response) {
-        try {
-            const result = await ProductService.GetListProductsByDetailCategoryIdService(req);
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result,
-            });
-        } catch (e) {
-            logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.PRODUCT.getList,
-                        500
-                    ),
-                },
-            });
-        }
+        
     }
 
     public static async GetDetailProductController(req: Request, res: Response) {
         try {
             const result = await ProductService.GetDetailProductService(req);
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result
-            });
+            res.status(200).json(result);
         } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.PRODUCT.getDetail, 500)
-                }
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.getDetail));
         }
     }
 
     public static async UpdateProductController(req: Request, res: Response) {
         try {
             const result = await ProductService.UpdateProductService(req);
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result
-            });
+            res.status(200).json(result);
         } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.PRODUCT.update, 500)
-                }
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.update));
         }
     }
 
     public static async DeleteProductController(req: Request, res: Response){
         try {
             const result = await ProductService.DeleteProductService(req);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result
-            });
+            res.status(200).json(result);
         } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.PRODUCT.delete, 500)
-                }
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.delete));
         }
     }
 }

@@ -29,8 +29,8 @@ export const getDetailWithJWTService = (jwt: string) => {
 }
 
 const parseData = (data?: any) =>  {
-    return {
+    return data.result ? {
         ...data,
         result: new AuthResponse(data.result)
-    }
+    } : new ApiResponse(data)
 }

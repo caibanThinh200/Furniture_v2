@@ -7,10 +7,11 @@ const route: Router = express.Router();
 
 route.post(PATH.APP.start, ProductController.AddProductController);
 route.get(PATH.APP.start, ProductController.GetListProductController);
-route.get(PATH.APP.params.replace("params", "id"), ProductController.GetDetailProductController);
-route.get(`/category/:category_id`, ProductController.GetListProductByCategoryIdController);
-route.get(`/category-detail/:category_detail_id`, ProductController.GetListProductByCategoryDetailIdController);
-route.put(PATH.APP.params.replace("params", "id"), ProductController.UpdateProductController);
-// route.delete(PATH.APP.params.replace("params", "id"), ProductController.DeleteProductController);
+route.get(PATH.PRODUCT.category, ProductController.GetListProductByCategoryIdController);
+route.get(PATH.PRODUCT.category_detail, ProductController.GetListProductByCategoryDetailIdController);
+route.get(PATH.PRODUCT.detail, ProductController.GetDetailProductController);
+route.put(PATH.PRODUCT.detail, ProductController.UpdateProductController);
+route.post(PATH.PRODUCT.excel, ProductController.AddProductByExcelController);
+route.get(PATH.PRODUCT.filter, ProductController.GetFilterProductController);
 
 export default route;

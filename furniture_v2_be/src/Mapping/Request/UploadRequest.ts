@@ -13,10 +13,10 @@ export abstract class UploadRequest implements generateData {
     }
 
     setData(data: any): void {
-        this.url = data.url || "";
-        this.name = data.name || "";
-        this.role = data.role || "";
-        this.created_at = data.created_at || Date.now();
-        this.updated_at = data.updated_at || null;
+        this.url = data?.url || "";
+        this.name = data?.name || "";
+        this.role = data?.role || "";
+        this.created_at = data?.created_at || Date.now();
+        this.updated_at = data?.updated_at || null;
     }
 }

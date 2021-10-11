@@ -27,38 +27,26 @@ const Banner: React.FC<Props> = (props) => {
           ))}
       </ol>
       
+      <Parallax className="furniture_home__banner" strength={500}>
         <Wrapper className="carousel-inner">
-          <Parallax className="furniture_home__banner" strength={500}>
-            {TAG_DEFINE.PAGE.HOMEPAGE.BANNER.image.length > 0 &&
-              TAG_DEFINE.PAGE.HOMEPAGE.BANNER.image.map((item, index) => (
-                <Background
-                  className={clsx(
-                    "carousel-item position-relative",
-                    index === 0 && "active"
-                  )}
-                >
-                  <Wrapper className="position-absolute ml-5">
-                    <Wrapper className="furniture_home__banner__content--down">
-                      <span className="h3">What is Lorem Ipsum?</span>
-                    </Wrapper>
-                    <Wrapper className="w-50 furniture_home__banner__content--up">
-                      <span className="h5">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                      </span>
-                    </Wrapper>
+          {TAG_DEFINE.PAGE.HOMEPAGE.BANNER.image.length > 0 &&
+            TAG_DEFINE.PAGE.HOMEPAGE.BANNER.image.map((item, index) => (
+              <Background className={clsx("carousel-item", item.active && "active")}>
+                <Wrapper className="position-absolute ml-5">
+                  <Wrapper className="furniture_home__banner__content--down">
+                    <span className="h3">What is Lorem Ipsum?</span>
                   </Wrapper>
-                  <img className="furniture_home__image" src={item.path} />
-                </Background>
-                // {/* <Wrapper
-                // className="w-100 h-100"
-                //     style={{
-                //         backgroundImage: `url(${item.path})`
-                //     }}>
-                // </Wrapper> */}
-              ))}
-              </Parallax>
+                  <Wrapper className="w-50 furniture_home__banner__content--up">
+                    <span className="h5">
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                    </span>
+                  </Wrapper>
+                </Wrapper>
+                <img className="d-block w-100 furniture_home__image" src={item.path} />
+              </Background>
+            ))}
         </Wrapper>
-      
+      </Parallax>
       <a
         className="carousel-control-prev"
         href="#carouselExampleIndicators"

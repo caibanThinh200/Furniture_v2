@@ -4,7 +4,7 @@ import * as Func from "../Util/functions";
 import { Action } from 'redux';
 import { registerService, loginService, getDetailWithJWTService } from '../Service/authService';
 import RegisterRequest from '../Mapping/Request/registerRequest';
-import { message } from 'antd';
+import { message, notification } from 'antd';
 import TAG_DEFINE from '../constant/tagDefine';
 import { ApiResponse } from '../Util/inteface';
 import AuthRequest from '../Mapping/Request/authRequest';
@@ -42,8 +42,17 @@ function* checkUserWithJWT(): Generator {
     yield takeLatest(Types.CHECK_USER_ACTION, Func.sagaWrapper(function*(action: Action): Generator {
         const token = (action as any).payload || "";
         const user = yield call(getDetailWithJWTService, token);
-        if((user as any).result) {
+        if((user as any).status.toUpperCase() === "SUCCESS" && (user as any).result) {
             yield put({type: Types.CHECK_USER_SUCCESS, payload: (user as any).result})
+        } 
+        if((user as any).status.toUpperCase() === "FAILED" && (user as any).error) {
+            yield put({type: Types.CHECK_USER_SUCCESS, payload: {
+                isLogged: false
+            }})
+            notification.error({
+                message: "Hết phiên làm việc",
+                description: "Phiên làm việc đã hết hạn vui lòng đăng nhập lại"
+            })
         }
     }, errorHandle(Types.CHECK_USER_FAILED)));
 }

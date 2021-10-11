@@ -1,7 +1,7 @@
 @import '__variable.scss';
 .furniture_home {
     &__banner {
-        height: 910px;
+        height: 990px;
         min-height: 400px;
         div {
             background-position: center; /* Center the image */
@@ -24,7 +24,7 @@
         }
     }
     &__image {
-        height: 1200px;
+        height: 990px;
     }
     &__title {
         color: $title;

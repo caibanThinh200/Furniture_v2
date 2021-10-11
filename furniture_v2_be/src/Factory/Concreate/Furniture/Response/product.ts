@@ -18,12 +18,12 @@ class FurnitureResponse extends ProductResponse {
 
     setFurnitureData(data: any) {
         this.setData(data);
-        this.size = data.size || "";
-        this.productWeight = data.productWeight || "";
-        this.maxWeight = data.maxWeight || "";
-        this.feature = data.feature || "";
-        this.images = (data.images || []).map(item => new FurnitureUploadResponse(item));
-        this.categories = data.categories || "";
+        this.size = data?.size || "";
+        this.productWeight = data?.productWeight || "";
+        this.maxWeight = data?.maxWeight || "";
+        this.feature = data?.feature || "";
+        this.images = (data?.images || []).map(item => new FurnitureUploadResponse(item));
+        this.categories = data?.categories || "";
     }
 }
 

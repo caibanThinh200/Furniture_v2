@@ -9,7 +9,7 @@ class FurnitureResponse extends AccessoryResponse {
 
     setFurnitureData(data: any) {
         this.setData(data);
-        this.color = data.color || [];
+        this.color = data?.color || [];
     }
 }
 

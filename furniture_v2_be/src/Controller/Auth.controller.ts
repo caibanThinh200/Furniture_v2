@@ -8,138 +8,55 @@ class AuthController {
     public static async Login(req: Request, res: Response) {
         try {
             const result = await AuthService.LoginService(req);
-            if(!(result as any).accessToken) {
-                res.status(200).json({
-                    status: TAG_DEFINE.STATUS.failed,
-                    error: {
-                        code: 401,
-                        message: TAG_DEFINE.VALIDATION.USER.invalidUser
-                    }
-                })
-            } else {
-                res.status(200).json({
-                    status: TAG_DEFINE.STATUS.sucess,
-                    error: null,
-                    result
-                })
-            }
+            
+            res.status(200).json(result)
         } catch (error) {
             logger.error(error);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.AUTH.LOGIN.failed,
-                        500
-                    ),
-                },
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, error, TAG_DEFINE.RESULT.AUTH.LOGIN.failed));
         }
     }
 
     public static async Register(req: Request, res: Response) {
         try {
             const result = await AuthService.RegisterService(req);
-            if(result === CommonFunction.getActionResult(TAG_DEFINE.RESULT.AUTH.REGISTER.success, 200)) {
-                res.status(200).json({
-                    status: TAG_DEFINE.STATUS.sucess,
-                    error: null,
-                    result
-                });
-            } else {
-                res.status(200).json({
-                    status: TAG_DEFINE.STATUS.failed,
-                    error: {
-                        code: 501,
-                        message: CommonFunction.getActionResult(TAG_DEFINE.RESULT.AUTH.REGISTER.failed, 500)
-                    },
-                    result: null
-                });
-            }
+
+            console.log(result)
+            
+            res.status(200).json(result);
         } catch (error) {
             logger.error(error);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.AUTH.REGISTER.failed,
-                        500
-                    ),
-                },
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, error, TAG_DEFINE.RESULT.AUTH.REGISTER));
         }
     }
 
     public static async GetDetailUserController(req: Request, res: Response) {
         try {
             const result = await AuthService.GetDetailUserService(req);
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result
-            });
+            res.status(200).json(result);
         } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.AUTH.getDetail, 500)
-                }
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.AUTH.getDetail));
         }
     }
 
     public static async UpdateUserController(req: Request, res: Response) {
         try {
             const result = await AuthService.UpdateUserService(req);
-            res.status(200).json({
-                status: TAG_DEFINE.STATUS.sucess,
-                error: null,
-                result
-            });
+            res.status(200).json(result);
         } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.AUTH.update, 500)
-                }
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.AUTH.update));
         }
     }
 
     public static async GetUserByJWTController(req: Request, res: Response) {
         try {
             const result = await AuthService.GetUserByJWT(req);
-            if(result) {
-                res.status(200).json({
-                    status: TAG_DEFINE.STATUS.sucess,
-                    error: null,
-                    result
-                });
-            } else {
-                res.status(200).json({
-                    status: TAG_DEFINE.STATUS.failed,
-                    error: {
-                        code: 404,
-                        message: CommonFunction.getActionResult(TAG_DEFINE.RESULT.AUTH.getDetail, 500)
-                    },
-                    result: null
-                });
-            }
+            
+            res.status(200).json(result);
         } catch(e) {
             logger.error(e);
-            res.status(400).json({
-                status: TAG_DEFINE.STATUS.failed,
-                error: {
-                    code: 500,
-                    mesage: CommonFunction.getActionResult(TAG_DEFINE.RESULT.AUTH.getDetail, 500)
-                }
-            });
+            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.AUTH.getDetail));
         }
     }
 }

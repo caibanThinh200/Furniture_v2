@@ -10,7 +10,7 @@ export const ValidateRegister = async (
   res: Response,
   next: NextFunction
 ) => {
-  const userFactory = UserFactory.getUser(
+  const userFactory = UserFactory.createUser(
     req.body,
     (req.headers as any)["type"]
   );

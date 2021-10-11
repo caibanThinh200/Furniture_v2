@@ -45,7 +45,7 @@ const NavBar: React.FC<Props> = props => {
     [action, setAction] = useState(TAG_DEFINE.PAGE.CUSTOMER.auth.login.title),
     token = localStorage.getItem("fnt_token") || "",
     {decodedToken, isExpired} = useJwt(token);
-    
+
     useEffect(() => {
         const path = location.pathname === "/";
         if(path) {
@@ -96,7 +96,7 @@ const NavBar: React.FC<Props> = props => {
                                 )
                             }
                             {
-                                token && props.auth.isLogged ? <Wrapper className="furniture_header__nav-wrapper--right d-flex"> 
+                                token && !isExpired && props.auth.isLogged ? <Wrapper className="furniture_header__nav-wrapper--right d-flex"> 
                                     <Dropdown 
                                         placement="bottomLeft" 
                                         overlay={<ProfileNavigate {...props}/>}
@@ -149,7 +149,7 @@ const NavBar: React.FC<Props> = props => {
                             )
                         }
                         {
-                            token && props.auth.isLogged ? <Wrapper className="furniture_header__nav-wrapper--right d-flex"> 
+                            token && !isExpired && props.auth.isLogged ? <Wrapper className="furniture_header__nav-wrapper--right d-flex"> 
                                 <Dropdown 
                                     placement="bottomLeft" 
                                     overlay={<ProfileNavigate {...props}/>}
@@ -161,7 +161,7 @@ const NavBar: React.FC<Props> = props => {
                                             </h5>
                                         </li> 
                                 </Dropdown>
-                            </Wrapper>: 
+                            </Wrapper> : 
                             <Wrapper className="furniture_header__nav-wrapper--right d-flex">
                                 <li onClick={() => openModal(TAG_DEFINE.PAGE.CUSTOMER.auth.register.key)} className={clsx("furniture_header__nav-link furniture_header__nav-link ml-5")}>
                                     <h5 className={clsx("font-weight-bold p-2 mt-3")}>

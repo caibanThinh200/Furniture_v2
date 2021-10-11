@@ -78,8 +78,9 @@ export default class ApiService {
             const thirdParams = method === Methods.PUT || method === Methods.POST ? config : undefined;
             (this.axiosInstance as any)[method](this.endpoint, secondParams, thirdParams)
             .then((response: any) => {
+               
                 const result = this.parser ? this.parser(response.data) : new ApiResponse({...response, request: data, success: true})
-                //return result;
+                console.log(result);
                 resolve(result)
             })
         })

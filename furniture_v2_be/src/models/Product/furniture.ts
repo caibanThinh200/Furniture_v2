@@ -32,6 +32,10 @@ const FurnitureFields = {
         type: String,
         default: 0,
     },
+    categories: {
+        type: [String],
+        ref: CommonFunction.getStoreSchema(TAG_DEFINE.SCHEMA.CATEGORY, TAG_DEFINE.STORE.FURNITURE)
+    }
     // images: {
     //     type: [ImageSchema]
     // },

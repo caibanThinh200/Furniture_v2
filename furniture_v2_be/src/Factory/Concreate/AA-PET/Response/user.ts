@@ -9,6 +9,6 @@ export default class AAPetModel extends UserModel {
 
     setAAPetData(data: any) {
         this.setData(data);
-        this.username = data.username || "";
+        this.username = data?.username || "";
     }
 }

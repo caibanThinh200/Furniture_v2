@@ -11,8 +11,8 @@ export abstract class BillResponse implements generateData {
     }
 
     setData(data: any): void {
-        this._id = data._id.toString() || "";
-        this.total = data.total || "";
-        this.created_at = data.created_at || Date.now();
+        this._id = data?._id.toString() || "";
+        this.total = data?.total || "";
+        this.created_at = data?.created_at || Date.now();
     }
 }

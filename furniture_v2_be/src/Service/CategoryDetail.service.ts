@@ -18,21 +18,16 @@ export default class CategoryDetailService {
             const result = await categoryDetail
                 .save()
                 .then(() =>
-                    CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.CATEGORY_DETAIL.create,
-                        200
-                    )
+                    CommonFunction.getActionResult(null, 201, null, TAG_DEFINE.RESULT.CATEGORY_DETAIL.create)
                 )
                 .catch((e) => {
                     logger.error(e);
-                    return CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.CATEGORY_DETAIL.create,
-                        500
-                    );
+                    return CommonFunction.getActionResult(null, 403, null, TAG_DEFINE.RESULT.CATEGORY_DETAIL.create);
                 });
-            return result;
-        } catch (error) {
-            logger.error(error);
+                return result;
+            } catch (error) {
+                logger.error(error);
+                return CommonFunction.getActionResult(null, 400, error, TAG_DEFINE.RESULT.CATEGORY_DETAIL.create);
         }
     }
 
@@ -47,9 +42,10 @@ export default class CategoryDetailService {
             const result = list_category_detail.map((item) =>
                 CategoryDetailFactory.GetCategoryDetail(item, type)
             );
-            return result;
+            return CommonFunction.getActionResult(result, 200, null);
         } catch (error) {
             logger.error(error);
+            return CommonFunction.getActionResult(null, 400, error, TAG_DEFINE.RESULT.CATEGORY_DETAIL.getList);
         }
     }
 
@@ -67,9 +63,11 @@ export default class CategoryDetailService {
                 type
             );
 
-            return result;
+            return CommonFunction.getActionResult(result, 200, null);
         } catch (error) {
             logger.error(error);
+            return CommonFunction.getActionResult(null, 400, error, TAG_DEFINE.RESULT.CATEGORY_DETAIL.getDetail);
+
         }
     }
 
@@ -87,22 +85,17 @@ export default class CategoryDetailService {
             const result = await categoryDetail
                 .save()
                 .then(() =>
-                    CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.CATEGORY_DETAIL.update,
-                        200
-                    )
+                    CommonFunction.getActionResult(null, 200, null, TAG_DEFINE.RESULT.CATEGORY_DETAIL.update)
                 )
                 .catch((err) => {
                     logger.error(err);
-                    return CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.CATEGORY_DETAIL.update,
-                        500
-                    );
+                    return CommonFunction.getActionResult(null, 403, err, TAG_DEFINE.RESULT.CATEGORY_DETAIL.update);
                 });
 
             return result;
         } catch (error) {
             logger.error(error);
+            return CommonFunction.getActionResult(null, 400, error, TAG_DEFINE.RESULT.CATEGORY_DETAIL.update);
         }
     }
 
@@ -114,21 +107,16 @@ export default class CategoryDetailService {
             const result = await CategoryDetailFactory.GetSchema(type)
                 .findByIdAndDelete(id)
                 .then(() =>
-                    CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.CATEGORY_DETAIL.delete,
-                        200
+                    CommonFunction.getActionResult(null, 200, null, TAG_DEFINE.RESULT.CATEGORY_DETAIL.delete)
                     )
-                )
                 .catch((err) => {
                     logger.error(err);
-                    return CommonFunction.getActionResult(
-                        TAG_DEFINE.RESULT.CATEGORY_DETAIL.delete,
-                        500
-                    );
+                    return CommonFunction.getActionResult(null, 403, null, TAG_DEFINE.RESULT.CATEGORY_DETAIL.delete)
                 });
             return result;
         } catch (error) {
             logger.error(error);
+            return CommonFunction.getActionResult(null, 400, null, TAG_DEFINE.RESULT.CATEGORY_DETAIL.delete)
         }
     }
 }

@@ -11,9 +11,9 @@ export default abstract class CategoryDetailResponse implements generateData {
     }
 
     setData(data: any): void {
-        this._id = data._id.toString();
-        this.name = data.name;
-        this.category_id = data.category_id;
+        this._id = data?._id.toString();
+        this.name = data?.name;
+        this.category_id = data?.category_id;
         this.createdAt = Date.now();
     }
 }

@@ -16,13 +16,13 @@ export abstract class UserModel implements generateData {
     }
 
     setData(data: any): void {
-        this.name = data.name || "";
-        this.email = data.email || "";
-        this.password = data.password || "";
-        this.address = data.address || "";
-        this.phone = data.phone || "";
-        this.gender = data.gender || "Male";
-        this.created_at = data.created_at || Date.now();
-        this.updated_at = data.updated_at || null;
+        this.name = data?.name || "";
+        this.email = data?.email || "";
+        this.password = data?.password || "";
+        this.address = data?.address || "";
+        this.phone = data?.phone || "";
+        this.gender = data?.gender || "Male";
+        this.created_at = data?.created_at || Date.now();
+        this.updated_at = data?.updated_at || null;
     }
 }

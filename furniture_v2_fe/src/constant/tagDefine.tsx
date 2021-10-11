@@ -25,17 +25,17 @@ const TAG_DEFINE = {
                 image: [
                     {
                         name: "banner1",
-                        path :"/define/banner.png",
+                        path: "/define/banner1.png",
                         active: true
                     },
-                    // {
-                    //     name: "banner2",
-                    //     path :"/define/c0297ca755b51b8572f4f28d18293b0b.jpg"
-                    // },
-                    // {
-                    //     name: "banner3",
-                    //     path :"/define/banner1.webp"
-                    // },
+                    {
+                        name: "banner2",
+                        path: "/define/banner.png",
+                    },
+                    {
+                        name: "banner3",
+                        path: "/define/banner2.jpg",
+                    },
                 ]
             },
             GUARANTEE: "CAM KẾT DỊCH VỤ TỐT NHẤT",
@@ -164,6 +164,10 @@ const TAG_DEFINE = {
     RESULT: {
         success: "%s thành công",
         failed: "%s thất bại"
+    },
+    ERROR: {
+        404: "Không tìm thấy %s",
+        500: "Hệ thống đang có lỗi, vui lòng quay lại sau"
     }
 }
 

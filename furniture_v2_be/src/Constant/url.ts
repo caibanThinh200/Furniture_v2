@@ -7,6 +7,11 @@ const PATH: any = {
     },
     PRODUCT: {
         baseURL: "/product",
+        excel: "/excel",
+        filter: "/filter",
+        detail: "/detail/:id",
+        category: "/category/:category_id",
+        category_detail: "/category-detail/:category_detail_id",
     },
     CATEGORY: {
         baseURL: "/cate",
@@ -30,10 +35,10 @@ const PATH: any = {
     PET_TYPE: {
         baseURL: "/pet-type",
     },
-    ORDER:{
+    ORDER: {
         baseURL: "/order",
         user_id: "/user/:id",
-    }
+    },
 };
 
 export default PATH;

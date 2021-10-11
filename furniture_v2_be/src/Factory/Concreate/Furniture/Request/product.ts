@@ -18,13 +18,13 @@ class FurnitureRequest extends ProductRequest {
 
     setFurnitureData(data: any) {
         this.setData(data);
-        this.accessories = (data.accessory || []).map(item => new FurnitureAccessoryRequest(item));
-        this.size = data.size || "";
-        this.productWeight = data.productWeight || 0;
-        this.maxWeight = data.maxWeight || 0;
-        this.feature = data.feature || "";
-        this.images = (data.images || []).map(item => new FurnitureUploadRequest(item));
-        this.categories = data.categories || "";
+        this.accessories = (data?.accessory || []).map(item => new FurnitureAccessoryRequest(item));
+        this.size = data?.size || "";
+        this.productWeight = data?.productWeight || 0;
+        this.maxWeight = data?.maxWeight || 0;
+        this.feature = data?.feature || "";
+        this.images = (data?.images || []).map(item => new FurnitureUploadRequest(item));
+        this.categories = data?.categories || "";
     }
 }
 
