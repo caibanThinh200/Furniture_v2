@@ -129,7 +129,7 @@ export default class AuthService {
                             _id: userId._id,
                         }))) ||
                     {};
-                const result = CommonFunction.getActionResult(userInfo ? UserFactory.getUser(userInfo[0], type as string) : {}, 200, null);
+                const result = CommonFunction.getActionResult(userInfo ? UserFactory.getUser(userInfo, type as string) : {}, 200, null);
 
                 return result;
             } else {
