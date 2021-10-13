@@ -11,6 +11,7 @@ export default class AAPetResponse extends OrderResponse {
     private products: ProductType[];
     private delivery_method: string;
     private payment_method: string;
+    private code: string;
     /**
      *
      */
@@ -26,5 +27,6 @@ export default class AAPetResponse extends OrderResponse {
         this.products = data.products || [];
         this.delivery_method = data.delivery_method || "";
         this.payment_method = data.payment_method || "";
+        this.code = data.code || "";
     }
 }

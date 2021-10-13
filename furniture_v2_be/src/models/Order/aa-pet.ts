@@ -2,6 +2,7 @@ import { Schema, model } from "mongoose";
 import TAG_DEFINE from "../../Constant/define";
 import CommonFunction from "../../Utils/function";
 import baseField from "./baseField";
+import shortId from "shortid";
 
 const productField = {
     _id: false,
@@ -55,7 +56,36 @@ const OrderSchema = new Schema({
         ),
         required: true,
     },
+    code: {
+        type: String,
+        unique: true
+    },
 });
+
+var autoPopulateLead = function (next) {
+    this.populate({
+        path: "products",
+        populate: {
+            path: "product_id",
+        },
+    });
+    // .populate("pet_type_id");
+
+    next();
+};
+
+OrderSchema.pre('save', function(next){
+    this.code = shortId
+        .characters(
+            "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@"
+        )
+        .slice(0, 6)
+        .toUpperCase();
+
+    next();
+})
+
+OrderSchema.pre("find", autoPopulateLead);
 
 const Order = model(
     CommonFunction.getStoreSchema(

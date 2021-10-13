@@ -48,7 +48,7 @@ export default class OrderService {
     public static async GetAllOrderByUserIdService(req: Request) {
         const type = req.headers["type"] as string;
         const { id } = req.params;
-
+        
         try {
             const orders = await OrderFactory.getSchema(type).find({
                 user_id: id,
@@ -72,7 +72,7 @@ export default class OrderService {
     public static async GetDetailOrderService(req: Request) {
         const type = req.headers["type"] as string;
         const { id } = req.params;
-
+        console.log(id)
         try {
             const order = await OrderFactory.getSchema(type).findById(id);
 
