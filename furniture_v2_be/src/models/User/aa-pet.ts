@@ -22,6 +22,10 @@ const UserSchema = new Schema(
             required: true,
             unique: true,
         },
+        wishList: {
+            type: Array,
+            default: []
+        }
     },
     { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );

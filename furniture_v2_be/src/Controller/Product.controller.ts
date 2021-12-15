@@ -1,27 +1,44 @@
-import ProductService from '../Service/Product.service';
-import logger from '../Config/logger';
-import TAG_DEFINE from '../Constant/define';
-import CommonFunction from '../Utils/function';
-import {Request, Response} from "express"
+import ProductService from "../Service/Product.service";
+import logger from "../Config/logger";
+import TAG_DEFINE from "../Constant/define";
+import CommonFunction from "../Utils/function";
+import { Request, Response } from "express";
 
 class ProductController {
-    public static async AddProductByExcelController(req: Request, res: Response) {
+    public static async AddProductByExcelController(
+        req: Request,
+        res: Response
+    ) {
         try {
             const result = await ProductService.AddProductByExcelService(req);
             res.status(200).json(result);
-        } catch(e) {
+        } catch (e) {
             logger.error(e);
-            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.create));
+            res.status(500).json(
+                CommonFunction.getActionResult(
+                    null,
+                    500,
+                    e,
+                    TAG_DEFINE.RESULT.PRODUCT.create
+                )
+            );
         }
     }
 
     public static async AddProductController(req: Request, res: Response) {
         try {
-            const result = await ProductService.AddProductService(req)
+            const result = await ProductService.AddProductService(req);
             res.status(200).json(result);
-        } catch(e) {
+        } catch (e) {
             logger.error(e);
-            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.create));
+            res.status(500).json(
+                CommonFunction.getActionResult(
+                    null,
+                    500,
+                    e,
+                    TAG_DEFINE.RESULT.PRODUCT.create
+                )
+            );
         }
     }
 
@@ -29,29 +46,101 @@ class ProductController {
         try {
             const result = await ProductService.GetListProductService(req);
             res.status(200).json(result);
-        } catch(e) {
+        } catch (e) {
             logger.error(e);
-            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.getList));
+            res.status(500).json(
+                CommonFunction.getActionResult(
+                    null,
+                    500,
+                    e,
+                    TAG_DEFINE.RESULT.PRODUCT.getList
+                )
+            );
         }
     }
 
-    public static async GetFilterProductController(req: Request, res: Response) {
+    public static async GetFilterProductController(
+        req: Request,
+        res: Response
+    ) {
         try {
             const result = await ProductService.GetFilterProductService(req);
             res.status(200).json(result);
-        } catch(e) {
+        } catch (e) {
             logger.error(e);
-            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.getList));
+            res.status(500).json(
+                CommonFunction.getActionResult(
+                    null,
+                    500,
+                    e,
+                    TAG_DEFINE.RESULT.PRODUCT.getList
+                )
+            );
         }
     }
 
-    public static async GetDetailProductController(req: Request, res: Response) {
+    public static async GetProductsByCategoryDetailIdController(
+        req: Request,
+        res: Response
+    ) {
+        try {
+            const result =
+                await ProductService.GetProductsByCategoryDetailIdService(req);
+
+            res.status(200).json(result);
+        } catch (error: any) {
+            logger.error(error);
+            res.status(500).json(
+                CommonFunction.getActionResult(
+                    null,
+                    500,
+                    error,
+                    TAG_DEFINE.RESULT.PRODUCT.getList
+                )
+            );
+        }
+    }
+
+    public static async GetProductsByCategoryIdController(
+        req: Request,
+        res: Response
+    ) {
+        try {
+            const result = await ProductService.GetProductsByCategoryIdService(
+                req
+            );
+
+            res.status(200).json(result);
+        } catch (error: any) {
+            logger.error(error);
+            res.status(500).json(
+                CommonFunction.getActionResult(
+                    null,
+                    500,
+                    error,
+                    TAG_DEFINE.RESULT.PRODUCT.getList
+                )
+            );
+        }
+    }
+
+    public static async GetDetailProductController(
+        req: Request,
+        res: Response
+    ) {
         try {
             const result = await ProductService.GetDetailProductService(req);
             res.status(200).json(result);
-        } catch(e) {
+        } catch (e) {
             logger.error(e);
-            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.getDetail));
+            res.status(500).json(
+                CommonFunction.getActionResult(
+                    null,
+                    500,
+                    e,
+                    TAG_DEFINE.RESULT.PRODUCT.getDetail
+                )
+            );
         }
     }
 
@@ -59,19 +148,33 @@ class ProductController {
         try {
             const result = await ProductService.UpdateProductService(req);
             res.status(200).json(result);
-        } catch(e) {
+        } catch (e) {
             logger.error(e);
-            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.update));
+            res.status(500).json(
+                CommonFunction.getActionResult(
+                    null,
+                    500,
+                    e,
+                    TAG_DEFINE.RESULT.PRODUCT.update
+                )
+            );
         }
     }
 
-    public static async DeleteProductController(req: Request, res: Response){
+    public static async DeleteProductController(req: Request, res: Response) {
         try {
             const result = await ProductService.DeleteProductService(req);
             res.status(200).json(result);
-        } catch(e) {
+        } catch (e) {
             logger.error(e);
-            res.status(500).json(CommonFunction.getActionResult(null, 500, e, TAG_DEFINE.RESULT.PRODUCT.delete));
+            res.status(500).json(
+                CommonFunction.getActionResult(
+                    null,
+                    500,
+                    e,
+                    TAG_DEFINE.RESULT.PRODUCT.delete
+                )
+            );
         }
     }
 }

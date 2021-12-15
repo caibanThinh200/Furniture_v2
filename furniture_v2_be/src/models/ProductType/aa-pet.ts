@@ -6,7 +6,7 @@ import { AddTypeInAccessory } from "../../Middleware/productType.middleware";
 
 const AAPetBaseField = {
     ...ProductTypeBaseField,
-    attribute: {
+    attributes: {
         type: [Schema.Types.ObjectId],
         ref: CommonFunction.getStoreSchema(
             TAG_DEFINE.SCHEMA.ACCESSORY,

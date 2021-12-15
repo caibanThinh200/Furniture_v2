@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import TAG_DEFINE from "../../Constant/define";
 import CommonFunction from "../../Utils/function";
-import {ProductBaseField} from './baseField'
+import { ProductBaseField } from "./baseField";
 
 export const ProductField = {
     ...ProductBaseField,
@@ -17,14 +17,30 @@ export const ProductField = {
         type: Array,
         default: [],
     },
+    accessories: {
+        type: [new Schema({
+            _id: mongoose.Types.ObjectId,
+            type: Number
+        })],
+        default: [],
+    },
+    size: String,
+    weight: Number,
+    origin: String,
+    feather: Number,
+    capacity: Number,
+    net_weight: Number,
 };
 
-const ProductSchema = new mongoose.Schema(ProductField, {
+const ProductSchema = new Schema(ProductField, {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
 });
 
 const Product = mongoose.model(
-    CommonFunction.getStoreSchema(TAG_DEFINE.SCHEMA.PRODUCT, TAG_DEFINE.STORE.AA_PET),
+    CommonFunction.getStoreSchema(
+        TAG_DEFINE.SCHEMA.PRODUCT,
+        TAG_DEFINE.STORE.AA_PET
+    ),
     ProductSchema
 );
 

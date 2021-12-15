@@ -48,7 +48,7 @@ export class ProductTypeFactory {
             case TAG_DEFINE.STORE.FURNITURE:
                 return FurnitureProductTypeModel;
             case TAG_DEFINE.STORE.AA_PET:
-                return new AAPetModel;
+                return AAPetModel;
             default:
                 return FurnitureProductTypeModel;
         }
